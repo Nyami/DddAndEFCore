@@ -63,6 +63,11 @@ namespace App
                 RaiseDomainEvent(new StudentEmailChangedEvent(Id, email));
             }
 
+            if (FavoriteCourse != favoriteCourse)
+            {
+                RaiseDomainEvent(new StudentFavoriteCourseChangedEvent(Id, favoriteCourse));
+            }
+
             Name = name;
             Email = email;
             FavoriteCourse = favoriteCourse;
