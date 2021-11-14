@@ -8,9 +8,15 @@ namespace App
     {
         public virtual Name Name { get; private set; }
         public Email Email { get; private set; }
-        public virtual Course FavoriteCourse { get; private set; }
+        private Course favoriteCourse;
+        public virtual Course FavoriteCourse
+        {
+            get => favoriteCourse;
+            private set { if (favoriteCourse != value) favoriteCourse = value; }
+        }
 
         private readonly List<Enrollment> _enrollments = new List<Enrollment>();
+
         public virtual IReadOnlyList<Enrollment> Enrollments => _enrollments.ToList();
 
         protected Student()
@@ -32,7 +38,7 @@ namespace App
         {
             if (_enrollments.Any(x => x.Course == course))
                 return $"Already enrolled in course '{course.Name}'";
-            
+
             var enrollment = new Enrollment(course, this, grade);
             _enrollments.Add(enrollment);
 
